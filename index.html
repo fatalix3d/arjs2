@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image.prod.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.5/dist/mindar-image-aframe.prod.js"></script>
+    <!--ChromaKey shader-->
+    <script src="https://unpkg.com/aframe-chromakey-material@1.1.4/dist/aframe-chromakey-material.min.js"></script>
+
+    <script>
+    let marker_jan = 0;
+    let marker_feb = 0;
+
+    let marker_march = 0;
+    let march_video_flag = 0;
+
+    let marker_april = 0;
+    let marker_may = 0;
+    let marker_june = 0;
+    let marker_july = 0;
+    let marker_september = 0;
+    let marker_oct = 0;
+    let marker_nov = 0;
+    let marker_dec = 0;
+    </script>
+
+    <script> AFRAME.registerComponent('play-on-click', {
+        init: function () {
+            this.onClick = this.onClick.bind(this);
+        },
+        play: function () {
+            window.addEventListener('click', this.onClick);
+        },
+        pause: function () {
+            window.removeEventListener('click', this.onClick);
+        },
+        onClick: function (evt) {
+
+            <!-- January-->
+            if (marker_jan == 1) {
+                var clickIcon = document.querySelector('#january_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#januaryVideoPlane');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                videoEl.play();
+                el.object3D.visible = true;
+            }
+
+            <!-- March-->
+            if (marker_march == 1) {
+                var clickIcon = document.querySelector('#march_icon')
+                clickIcon.object3D.visible = false;
+
+                if(march_video_flag == 0) {
+                    march_video_flag=1;
+                    var el = document.querySelector('#march_video_panel_1');
+                    var videoEl = el.getAttribute('material').src;
+                    if (!videoEl)
+                        return;
+
+                    videoEl.play();
+                    el.object3D.visible = true;
+
+                    var el2 = document.querySelector('#march_video_panel_2');
+
+                    var videoEl2 = el2.getAttribute('material').src;
+                    if (!videoEl2)
+                        return;
+                    videoEl2.play();
+                    el2.object3D.visible = true;
+                }
+            }
+            <!-- May-->
+            if (marker_may == 1) {
+                var clickIcon = document.querySelector('#may_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#may_video_panel');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+
+                el.object3D.visible = true;
+                videoEl.play();
+            }
+
+            <!-- June-->
+            if (marker_june == 1) {
+                var clickIcon = document.querySelector('#june_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#june_video_1');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                videoEl.currentTime = 0.2;
+                videoEl.play();
+                el.object3D.visible = true;
+
+                var el2 = document.querySelector('#june_video_2');
+                var videoEl2 = el2.getAttribute('material').src;
+                if (!videoEl2) {
+                    return;
+                }
+                videoEl2.currentTime = 0.2;
+                videoEl2.play();
+                el2.object3D.visible = true;
+
+                var el3 = document.querySelector('#june_video_3');
+                var videoEl3 = el3.getAttribute('material').src;
+                if (!videoEl3) {
+                    return;
+                }
+                videoEl3.currentTime = 0.2;
+                videoEl3.play();
+                el3.object3D.visible = true;
+            }
+
+            <!-- July-->
+            if (marker_july == 1) {
+                var clickIcon = document.querySelector('#july_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#july_video_panel');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                videoEl.play();
+                el.object3D.visible = true;
+            }
+
+            <!-- September-->
+            if (marker_september == 1) {
+                var clickIcon = document.querySelector('#september_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#september_video_panel');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                videoEl.play();
+                el.object3D.visible = true;
+            }
+
+            <!-- October-->
+            if (marker_oct == 1) {
+                var clickIcon = document.querySelector('#oct_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#oct_video_panel');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                videoEl.play();
+                el.object3D.visible = true;
+            }
+
+            <!-- November -->
+            if (marker_nov == 1) {
+                var clickIcon = document.querySelector('#nov_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#nov_video_panel');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                videoEl.play();
+                el.object3D.visible = true;
+            }
+        }
+    });
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            const january = document.querySelector('#january');
+            const march = document.querySelector('#march');
+
+            <!--January-->
+            <!-- ====================================================== -->
+
+            // detect target [1] found
+            january.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#january_icon')
+                clickIcon.object3D.visible = true;
+
+                marker_jan = 1;
+            });
+
+            // detect target [1] lost
+            january.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#januaryVideoPlane')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+
+                marker_jan = 0;
+            });
+
+            <!--Febrary-->
+            <!-- ====================================================== -->
+            var febObj = document.querySelector('#febrary_sprite')
+            // detect target [2] found
+            febrary.addEventListener("targetFound", event => {
+                febObj.emit(`febrary_fade`, null, false);
+                febObj.object3D.visible = true;
+                marker_feb = 1;
+            });
+            // detect target [2] lost
+            febrary.addEventListener("targetLost", event => {
+                febObj.object3D.visible = false;
+                marker_feb = 0;
+            });
+
+            <!--March-->
+            <!-- ====================================================== -->
+
+            // detect target [3] found
+            march.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#march_icon')
+                clickIcon.object3D.visible = true;
+                marker_march = 1;
+            });
+            // detect target [3] lost
+            march.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#march_video_panel_1')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.currentTime = 0;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+
+                var videoPlane2 = document.querySelector('#march_video_panel_2')
+                var videoEl2 = videoPlane.getAttribute('material').src;
+                videoEl2.currentTime = 0;
+                videoEl2.pause();
+
+                videoPlane2.object3D.visible = false;
+
+                march_video_flag = 0;
+                marker_march = 0;
+            });
+
+            <!--April-->
+            <!-- ====================================================== -->
+
+            // detect target [april] found
+            april.addEventListener("targetFound", event => {
+                var el = document.querySelector('#rainbow_image')
+                el.emit(`rainbow_fade_in`, null, false);
+            });
+            // detect target [april] lost
+            april.addEventListener("targetLost", event => {
+            });
+
+            <!--May-->
+            <!-- ====================================================== -->
+
+            // detect target [may] found
+            may.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#may_icon')
+                clickIcon.object3D.visible = true;
+                marker_may=1;
+            });
+            // detect target [may] lost
+            may.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#may_video_panel')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.currentTime = 0;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+                marker_may=0;
+            });
+
+            <!--June-->
+            <!-- ====================================================== -->
+
+            // detect target [June] found
+            june.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#june_icon')
+                clickIcon.object3D.visible = true;
+                marker_june=1;
+            });
+            // detect target [June] lost
+            june.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#june_video_1')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.currentTime = 0;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+
+                var videoPlane2 = document.querySelector('#june_video_2')
+                var videoEl2 = videoPlane.getAttribute('material').src;
+                videoEl2.currentTime = 0;
+                videoEl2.pause();
+                videoPlane2.object3D.visible = false;
+
+                var videoPlane3 = document.querySelector('#june_video_2')
+                var videoEl3 = videoPlane.getAttribute('material').src;
+                videoEl3.currentTime = 0;
+                videoEl3.pause();
+                videoPlane3.object3D.visible = false;
+                marker_june=0;
+            });
+
+            <!--July-->
+            <!-- ====================================================== -->
+
+            // detect target [July] found
+            july.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#july_icon')
+                clickIcon.object3D.visible = true;
+                console.log("111111")
+                marker_july = 1;
+            });
+
+            // detect target [July] lost
+            july.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#july_video_panel')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+
+                marker_july = 0;
+            });
+
+            <!--September-->
+            <!-- ====================================================== -->
+
+            // detect target [September] found
+            september.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#september_icon')
+                clickIcon.object3D.visible = true;
+                marker_september = 1;
+            });
+
+            // detect target [September] lost
+            september.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#september_video_panel')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoPlane.object3D.visible = false;
+                videoEl.pause();
+                marker_september = 0;
+            });
+
+            <!--October-->
+            <!-- ====================================================== -->
+
+            // detect target [October] found
+            oct.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#oct_icon')
+                clickIcon.object3D.visible = true;
+                marker_oct = 1;
+            });
+
+            // detect target [October] lost
+            oct.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#oct_video_panel')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+
+                marker_oct = 0;
+            });
+
+            <!--November-->
+            <!-- ====================================================== -->
+
+            // detect target [November] found
+            nov.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#nov_icon')
+                clickIcon.object3D.visible = true;
+                marker_nov = 1;
+            });
+
+            // detect target [November] lost
+            nov.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#nov_video_panel')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+
+                marker_nov = 0;
+            });
+
+        });
+    </script>
+</head>
+
+<body style="margin : 0px; overflow: hidden;">
+<a-scene mindar-image="imageTargetSrc: ./marker/targets_2.mind;" vr-mode-ui="enabled: false" device-orientation-permission-ui="enabled: false">
+
+    <a-assets>
+        <!--0 Cover-->
+        <img id="baloon_img" src="marker_data/0_cover/balloon.png">
+        <!--1 January-->
+        <img id="click_img" src="marker_data/1_jan/click.png">
+        <video id="snow" src="marker_data/1_jan/snow_video.mp4" width="160" height="90" crossOrigin="anonymous" muted loop="true" playsinline></video>
+        <!--2 Febrary-->
+        <img id="febrary_img" src="marker_data/2_feb/febrary.png">
+        <!--3 March-->
+        <video id="march_video" src="marker_data/3_march/tree_video_a.mp4" width="160" height="90" muted autoplay playsinline crossorigin="anonymous"></video>
+        <video id="march_video2" src="marker_data/3_march/tree_video_b.mp4" width="160" height="90" muted autoplay playsinline crossorigin="anonymous"></video>
+        <!--4 April-->
+        <img id="rainbow" src="marker_data/4_april/rainbow.png">
+        <!--5 May-->
+        <video id="may_video" src="marker_data/5_may/tree_blue.mp4" width="640" height="480" muted autoplay playsinline crossorigin="anonymous"></video>
+        <!--6 June-->
+        <video id="butterfly_1" src="marker_data/6_june/butterfly_1.mp4" preload="true" width="800" height="718" muted autoplay playsinline crossorigin="anonymous" loop="true"></video>
+        <video id="butterfly_2" src="marker_data/6_june/butterfly_2.mp4" width="560" height="546" muted autoplay playsinline crossorigin="anonymous" loop="true"></video>
+        <!--7 July-->
+        <video id="july_video" src="marker_data/7_july/july_video.mp4" width="160" height="90" crossOrigin="anonymous" muted loop="true" playsinline></video>
+        <!--8 July-->
+        <img id="aug_img" src="marker_data/8_aug/sun_flower.png">
+        <!--9 September-->
+        <video id="september_video" src="marker_data/9_sept/september_video.mp4" width="160" height="90" crossOrigin="anonymous" muted loop="true" playsinline></video>
+        <!--10 Oct-->
+        <video id="oct_video" src="marker_data/10_oct/ducks.mp4" width="160" height="90" crossOrigin="anonymous" muted loop="true" playsinline></video>
+        <!--11 Nov-->
+        <video id="nov_video" src="marker_data/11_nov/nov_video.mp4" width="1206" height="866" crossOrigin="anonymous" muted loop="true" playsinline></video>
+    </a-assets>
+
+    <a-camera position="0 0 0" look-controls="enabled: false">
+
+
+    </a-camera>
+
+    <!--0 Cover-->
+    <!-- ====================================================== -->
+    <a-entity mindar-image-target="targetIndex: 0">
+        <a-image src="#baloon_img"
+                 height="0.17" width="0.17"
+                 position="0 -0.2 0"
+                 animation="property: object3D.position.y; to: 0.2; dur: 15000; easing: easeInOutQuad; dir: alternate; loop: true;">
+        </a-image>
+
+        <a-image src="#baloon_img"
+                 height="0.4" width="0.4"
+                 position="-0.25 0.2 0.05"
+                 animation="property: object3D.position.y; to: -0.2; dur: 15000; easing: easeInOutQuad; dir: alternate; loop: true;">
+        </a-image>
+    </a-entity>
+
+    <!--1 January-->
+    <!-- ====================================================== -->
+    <a-entity id="january" mindar-image-target="targetIndex: 1">
+        <a-image id="january_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+                 >
+        </a-image>
+    </a-entity>
+
+    <a-entity id="januaryVideoPlane" material="shader: flat; blending: additive; transparent: true; depthTest: false; opacity: 0.5; src: #snow"
+              geometry="primitive: plane; width: 1.6; height: 0.9;" position="0 0 -10" scale="7 7 1" rotation="0 0 0"
+              visible="false"
+    >
+    </a-entity>
+    <!--2 Febrary-->
+    <!-- ====================================================== -->
+    <a-entity id="febrary" mindar-image-target="targetIndex: 2">
+
+    </a-entity>
+
+    <a-image id="febrary_sprite" src="#febrary_img"
+             width=1.6 height=0.9
+             position="0 0 -10"
+             scale="7 7 1"
+             animation="property: material.opacity; from:0; to: 1; startEvents: febrary_fade; dur: 5000; easing: easeInOutQuad; loop: false;"
+             visible="false"
+    >
+    </a-image>
+
+    <!--3 March-->
+    <!-- ====================================================== -->
+    <a-entity id="march" mindar-image-target="targetIndex: 3">
+        <a-image id="march_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+    </a-entity>
+
+    <a-entity id="march_video_panel_1" material="shader: chromakey; transparent: true; src: #march_video; color: 0 0 0";
+              geometry="primitive: plane; width:1.6; height:0.9;" position="-1.58 -2 -12.64" scale="3 3 3" visible="false"
+              play-on-click
+    ></a-entity>
+
+    <a-entity id="march_video_panel_2" material="shader: chromakey; transparent: true; src: #march_video2; color: 0 0 0";
+              geometry="primitive: plane; width:1.6; height:0.9;" position="1.58 2 -12.64" rotation="180 180 0" scale="3 3 3" visible="false"
+    ></a-entity>
+
+    <!--4 April-->
+    <!-- ====================================================== -->
+    <a-entity id="april" mindar-image-target="targetIndex: 4">
+        <a-image id="rainbow_image" src="#rainbow"
+                 height="0.25" width="1"
+                 position="0 0.2 0"
+                 animation="property: material.opacity; from:0; to: 1; startEvents: rainbow_fade_in; dur: 8000; easing: easeInOutQuad; loop: false;"
+        >
+        </a-image>
+    </a-entity>
+
+    <!--5 May-->
+    <!-- ====================================================== -->
+    <a-entity id="may" mindar-image-target="targetIndex: 5">
+        <a-image id="may_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+
+        <a-entity id="may_video_panel" material="shader: chromakey; transparent: true; src: #may_video; color: 0 0.09 0.99";
+                  geometry="primitive: plane; width:1; height:0.7;" position="0 0 0" scale="1 1 1"
+                  visible="false"
+                  play-on-click
+        ></a-entity>
+    </a-entity>
+
+    <!--6 June-->
+    <!-- ====================================================== -->
+    <a-entity id="june" mindar-image-target="targetIndex: 6">
+        <a-image id="june_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+
+        <a-entity id="june_video_1" material="shader: chromakey; transparent: true; src: #butterfly_1; color: 0.1 0.9 0.2";
+                  geometry="primitive: plane; width:1; height:1;" position="0.2 -0.32 0" scale="0.3 0.3 0.3" rotation="0 0 35"
+                  visible="false"
+                  play-on-click
+        ></a-entity>
+
+        <a-entity id="june_video_2" material="shader: chromakey; transparent: true; src: #butterfly_2; color: 0.1 0.9 0.2";
+                  geometry="primitive: plane; width:1; height:1;" position="0.15 0.17 0" scale="0.2 0.2 0.2" rotation="0 0 0"
+                  visible="false"
+                  play-on-click
+        ></a-entity>
+
+        <a-entity id="june_video_3" material="shader: chromakey; transparent: true; src: #butterfly_2; color: 0.1 0.9 0.2";
+                  geometry="primitive: plane; width:1; height:1;" position="-0.12 -0.02 0" scale="-0.15 0.15 0.15" rotation="0 0 0"
+                  visible="false"
+                  play-on-click
+        ></a-entity>
+    </a-entity>
+
+    <!--7 July-->
+    <!-- ====================================================== -->
+
+    <a-entity id="july" mindar-image-target="targetIndex: 7">
+        <a-image id="july_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+    </a-entity>
+
+    <a-entity id="july_video_panel" material="shader: chromakey; transparent: true; src: #july_video; color: 0 0 0";
+              geometry="primitive: plane; width: 1.6; height: 0.9;" position="0 0 -10" scale="7 7 1" rotation="0 0 0"
+              visible="false"
+              play-on-click
+    ></a-entity>
+
+    <!--8 Aug -->
+    <!-- ====================================================== -->
+
+    <a-entity id="aug" mindar-image-target="targetIndex: 8">
+        <a-image id="sunflower_1" src="#aug_img"
+                 height="0.2" width="0.2"
+                 position="0.5 0.2 0.08"
+                 scale="1 1 1"
+                 animation="property: rotation; to: 0 0 360; dur: 25000; easing: linear; loop: true;">
+        </a-image>
+
+        <a-image id="sunflower_2" src="#aug_img"
+                 height="0.2" width="0.2"
+                 position="-0.1 0.2 0.04"
+                 scale="0.75 0.75 0.7"
+                 animation="property: rotation; to: 0 0 -360; dur: 15000; easing: linear; loop: true;">
+        </a-image>
+
+        <a-image id="sunflower_3" src="#aug_img"
+                 height="0.2" width="0.2"
+                 position="-0.4 -0.05 0.06"
+                 scale="1.2 1.2 1.2"
+                 animation="property: rotation; to: 0 0 360; dur: 17500; easing: linear; loop: true;">
+        </a-image>
+
+        <a-image id="sunflower_4" src="#aug_img"
+                 height="0.2" width="0.2"
+                 position="0.1 -0.2 0.12"
+                 scale="0.75 0.75 0.75"
+                 animation="property: rotation; to: 0 0 -360; dur: 25000; easing: linear; loop: true;">
+        </a-image>
+
+        <a-image id="sunflower_5" src="#aug_img"
+                 height="0.2" width="0.2"
+                 position="-0.1 -0.3 0.07"
+                 scale="0.5 0.5 0.5"
+                 animation="property: rotation; to: 0 0 360; dur: 18000; easing: linear; loop: true;">
+        </a-image>
+
+        <a-image id="sunflower_6" src="#aug_img"
+                 height="0.2" width="0.2"
+                 position="0.4 -0.3 0.1"
+                 scale="0.6 0.6 0.6"
+                 animation="property: rotation; to: 0 0 -360; dur: 21000; easing: linear; loop: true;">
+        </a-image>
+    </a-entity>
+
+    <!--9 September-->
+    <!-- ====================================================== -->
+
+    <a-entity id="september" mindar-image-target="targetIndex: 9">
+        <a-image id="september_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+    </a-entity>
+
+    <a-entity id="september_video_panel" material="shader: chromakey; transparent: true; src: #september_video; color: 0 0 0";
+              geometry="primitive: plane; width: 1.6; height: 0.9;" position="0 0 -10" scale="7 7 1" rotation="0 0 0"
+              visible="false"
+              play-on-click
+    ></a-entity>
+
+    <!--10 October-->
+    <!-- ====================================================== -->
+
+    <a-entity id="oct" mindar-image-target="targetIndex: 10">
+        <a-image id="oct_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+
+        <a-entity id="oct_video_panel" material="shader: chromakey; transparent: true; src: #oct_video; color: 0.1 0.9 0.2";
+                  geometry="primitive: plane; width: 1.6; height: 0.9;" position="0 0 0" scale="1 1 1" rotation="0 0 0"
+                  visible="false"
+                  play-on-click
+        ></a-entity>
+    </a-entity>
+
+    <!--11 November-->
+    <!-- ====================================================== -->
+
+    <a-entity id="nov" mindar-image-target="targetIndex: 11">
+        <a-image id="nov_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+
+        <a-entity id="nov_video_panel" material="shader: flat; transparent: false; src: #nov_video;";
+                  geometry="primitive: plane; width: 1; height: 0.7;" position="0 0 0" scale="1 1 1" rotation="0 0 0"
+                  visible="false"
+                  play-on-click
+        ></a-entity>
+    </a-entity>
+
+</a-scene>
+</body>
+
+</html>
+
