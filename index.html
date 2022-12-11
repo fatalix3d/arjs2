@@ -179,6 +179,20 @@
                 el.object3D.visible = true;
                 videoEl.play();
             }
+
+            <!-- December-->
+            if (marker_dec == 1) {
+                var clickIcon = document.querySelector('#dec_icon')
+                clickIcon.object3D.visible = false;
+
+                var el = document.querySelector('#decVideoPlane');
+                var videoEl = el.getAttribute('material').src;
+                if (!videoEl) {
+                    return;
+                }
+                el.object3D.visible = true;
+                videoEl.play();
+            }
         }
     });
     </script>
@@ -293,6 +307,7 @@
                 clickIcon.object3D.visible = true;
                 marker_june=1;
             });
+
             // detect target [June] lost
             june.addEventListener("targetLost", event => {
                 var videoPlane = document.querySelector('#june_video_1')
@@ -307,7 +322,7 @@
                 videoEl2.pause();
                 videoPlane2.object3D.visible = false;
 
-                var videoPlane3 = document.querySelector('#june_video_2')
+                var videoPlane3 = document.querySelector('#june_video_3')
                 var videoEl3 = videoPlane.getAttribute('material').src;
                 videoEl3.currentTime = 0;
                 videoEl3.pause();
@@ -395,6 +410,26 @@
                 marker_nov = 0;
             });
 
+            <!--December-->
+            <!-- ====================================================== -->
+
+            // detect target [December] found
+            dec.addEventListener("targetFound", event => {
+                var clickIcon = document.querySelector('#dec_icon')
+                clickIcon.object3D.visible = true;
+                marker_dec = 1;
+            });
+
+            // detect target [December] lost
+            dec.addEventListener("targetLost", event => {
+                var videoPlane = document.querySelector('#decVideoPlane')
+                var videoEl = videoPlane.getAttribute('material').src;
+                videoEl.pause();
+                videoPlane.object3D.visible = false;
+
+                marker_dec = 0;
+            });
+
         });
     </script>
 </head>
@@ -421,7 +456,7 @@
         <video id="butterfly_1" src="marker_data/6_june/butterfly_1.mp4" preload="true" width="800" height="718" muted playsinline crossorigin="anonymous" loop="true"></video>
         <video id="butterfly_2" src="marker_data/6_june/butterfly_2.mp4" width="560" height="546" muted playsinline crossorigin="anonymous" loop="true"></video>
         <!--7 July-->
-        <video id="july_video" src="marker_data/7_july/july_video.mp4" width="160" height="90" crossOrigin="anonymous" muted loop="true" playsinline></video>
+        <video id="july_video" src="marker_data/7_july/flowers_blue.mp4" width="160" height="90" crossOrigin="anonymous" muted loop="true" playsinline></video>
         <!--8 July-->
         <img id="aug_img" src="marker_data/8_aug/sun_flower.png">
         <!--9 September-->
@@ -430,6 +465,8 @@
         <video id="oct_video" src="marker_data/10_oct/ducks.mp4" width="160" height="90" crossOrigin="anonymous" muted loop="true" playsinline></video>
         <!--11 Nov-->
         <video id="nov_video" src="marker_data/11_nov/nov_video.mp4" width="1206" height="866" crossOrigin="anonymous" muted loop="true" playsinline></video>
+        <!--12 Dec-->
+        <video id="dec_video" src="marker_data/12_dec/fireworks.mp4" width="1.6" height="0.9" crossOrigin="anonymous" muted loop="true" playsinline></video>
     </a-assets>
 
     <a-camera position="0 0 0" look-controls="enabled: false">
@@ -494,12 +531,12 @@
     </a-entity>
 
     <a-entity id="march_video_panel_1" material="shader: chromakey; transparent: true; src: #march_video; color: 0 0 0";
-              geometry="primitive: plane; width:1.6; height:0.9;" position="-1.58 -2 -12.64" scale="3 3 3" visible="false"
+              geometry="primitive: plane; width:1.6; height:0.9;" position="-1.38 -2 -12.64" scale="3 3 3" visible="false"
               play-on-click
     ></a-entity>
 
     <a-entity id="march_video_panel_2" material="shader: chromakey; transparent: true; src: #march_video2; color: 0 0 0";
-              geometry="primitive: plane; width:1.6; height:0.9;" position="1.58 2 -12.64" rotation="180 180 0" scale="3 3 3" visible="false"
+              geometry="primitive: plane; width:1.6; height:0.9;" position="1.58 1.58 -12.64" rotation="0 0 161" scale="-3 3 3" visible="false"
     ></a-entity>
 
     <!--4 April-->
@@ -568,7 +605,7 @@
         </a-image>
     </a-entity>
 
-    <a-entity id="july_video_panel" material="shader: chromakey; transparent: true; src: #july_video; color: 0 0 0";
+    <a-entity id="july_video_panel" material="shader: chromakey; transparent: true; src: #july_video; color: 1 0 0";
               geometry="primitive: plane; width: 1.6; height: 0.9;" position="0 0 -10" scale="7 7 1" rotation="0 0 0"
               visible="false"
               play-on-click
@@ -670,6 +707,24 @@
                   visible="false"
                   play-on-click
         ></a-entity>
+    </a-entity>
+
+    <!--12 December-->
+    <!-- ====================================================== -->
+
+    <a-entity id="dec" mindar-image-target="targetIndex: 12">
+        <a-image id="dec_icon" src="#click_img"
+                 height="0.5" width="0.5"
+                 position="0 0 0"
+        >
+        </a-image>
+    </a-entity>
+
+    <a-entity id="decVideoPlane" material="shader: flat; blending: additive; transparent: true; depthTest: false; opacity: 0.5; src: #dec_video"
+              geometry="primitive: plane; width: 1.6; height: 0.9;" position="0 0 -10" scale="7 7 1" rotation="0 0 0"
+              visible="false"
+              play-on-click
+    >
     </a-entity>
 
 </a-scene>
